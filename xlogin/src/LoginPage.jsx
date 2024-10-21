@@ -1,35 +1,58 @@
 import { useState } from "react";
 
 function LoginPage() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [inputValues, setInputValues] = useState({
+    username: "",
+    password: "",
+  });
   const [userMessage, setUserMessage] = useState("");
-  console.log("userName >>>", username);
-  console.log("password >>>", password);
 
-  // for handling username input
-  const handleUsername = (e) => {
-    setUsername(e.target.value);
-    // setPassword(e.target.value);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues((preValues) => ({ ...preValues, [name]: value }));
   };
 
-  // for handling password input
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  // for handling submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("submitted!");
+    const { username, password } = inputValues;
     if (username === "user" && password === "password") {
       setUserMessage("Welcome, user!");
+      //   setTimeout(() => setUserMessage(""), 3000);
     } else {
-      setUserMessage("Invalid username or password");
+      setUserMessage("Invalid username or password"); // Set error message
+      setTimeout(() => setUserMessage(""), 3000);
     }
   };
-  //   console.log("flag value >>", flag);
-  console.log("userMessage >>>", userMessage);
+  // Initial approach
+  //   const [username, setUsername] = useState("");
+  //   const [password, setPassword] = useState("");
+  //   const [userMessage, setUserMessage] = useState("");
+  //   console.log("userName >>>", username);
+  //   console.log("password >>>", password);
+
+  //   // for handling username input
+  //   const handleUsername = (e) => {
+  //     setUsername(e.target.value);
+  //     // setPassword(e.target.value);
+  //   };
+
+  //   // for handling password input
+  //   const handlePassword = (e) => {
+  //     setPassword(e.target.value);
+  //   };
+
+  //   // for handling submit
+  //   const handleSubmit = (e) => {
+  //     e.preventDefault();
+  //     // console.log("submitted!");
+  //     if (username === "user" && password === "password") {
+  //       setUserMessage("Welcome, user!");
+  //     } else {
+  //       setUserMessage("Invalid username or password");
+  //     }
+  //   };
+
+  //   console.log("userMessage >>>", userMessage);
   return (
     <>
       <h1>Login Page</h1>
@@ -42,18 +65,20 @@ function LoginPage() {
             <label>Username:</label>
             <input
               type="text"
+              name="username"
               placeholder="username"
-              value={username}
-              onChange={handleUsername}
+              value={inputValues.username}
+              onChange={handleInputChange}
               required
             ></input>
             <br></br>
             <label>Password:</label>
             <input
-              type="text"
+              type="password"
+              name="password"
+              value={inputValues.password}
               placeholder="password"
-              value={password}
-              onChange={handlePassword}
+              onChange={handleInputChange}
               required
             ></input>
             <br></br>
